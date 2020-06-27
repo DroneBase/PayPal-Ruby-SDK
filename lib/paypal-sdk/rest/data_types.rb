@@ -302,68 +302,68 @@ module PayPal::SDK
 
       class FundingInstrument < Base
         def self.load_members
-          object_of :credit_card, CreditCard
+          # object_of :credit_card, CreditCard
           object_of :credit_card_token, CreditCardToken
         end
       end
 
-      class CreditCard < Base
-        def self.load_members
-          object_of :id, String
-          object_of :number, String
-          object_of :type, String
-          object_of :expire_month, Integer
-          object_of :expire_year, Integer
-          object_of :cvv2, String
-          object_of :first_name, String
-          object_of :last_name, String
-          object_of :billing_address, Address
-          object_of :external_customer_id, String
-          object_of :state, String
-          object_of :valid_until, String
-          object_of :create_time, String
-          object_of :update_time, String
-          array_of :links, Links
-        end
+      # class CreditCard < Base
+      #   def self.load_members
+      #     object_of :id, String
+      #     object_of :number, String
+      #     object_of :type, String
+      #     object_of :expire_month, Integer
+      #     object_of :expire_year, Integer
+      #     object_of :cvv2, String
+      #     object_of :first_name, String
+      #     object_of :last_name, String
+      #     object_of :billing_address, Address
+      #     object_of :external_customer_id, String
+      #     object_of :state, String
+      #     object_of :valid_until, String
+      #     object_of :create_time, String
+      #     object_of :update_time, String
+      #     array_of :links, Links
+      #   end
 
-        include RequestDataType
+      #   include RequestDataType
 
-        def create()
-          path = "v1/vault/credit-cards"
-          response = api.post(path, self.to_hash, http_header)
-          self.merge!(response)
-          success?
-        end
+      #   def create()
+      #     path = "v1/vault/credit-cards"
+      #     response = api.post(path, self.to_hash, http_header)
+      #     self.merge!(response)
+      #     success?
+      #   end
 
-        class << self
-          def find(resource_id)
-            raise ArgumentError.new("id required") if resource_id.to_s.strip.empty?
-            path = "v1/vault/credit-cards/#{resource_id}"
-            self.new(api.get(path))
-          end
-        end
+      #   class << self
+      #     def find(resource_id)
+      #       raise ArgumentError.new("id required") if resource_id.to_s.strip.empty?
+      #       path = "v1/vault/credit-cards/#{resource_id}"
+      #       self.new(api.get(path))
+      #     end
+      #   end
 
-        def delete()
-          path = "v1/vault/credit-cards/#{self.id}"
-          response = api.delete(path, {})
-          self.merge!(response)
-          success?
-        end
+      #   def delete()
+      #     path = "v1/vault/credit-cards/#{self.id}"
+      #     response = api.delete(path, {})
+      #     self.merge!(response)
+      #     success?
+      #   end
 
-        def update(patch_requests)
-          patch_request_array = []
-          patch_requests.each do |patch_request|
-            patch_request = Patch.new(patch_request) unless patch_request.is_a? Patch
-            patch_request_array << patch_request.to_hash
-          end
-          path = "v1/vault/credit-cards/#{self.id}"
-          response = api.patch(path, patch_request_array, http_header)
-          self.merge!(response)
-          success?
-        end
+      #   def update(patch_requests)
+      #     patch_request_array = []
+      #     patch_requests.each do |patch_request|
+      #       patch_request = Patch.new(patch_request) unless patch_request.is_a? Patch
+      #       patch_request_array << patch_request.to_hash
+      #     end
+      #     path = "v1/vault/credit-cards/#{self.id}"
+      #     response = api.patch(path, patch_request_array, http_header)
+      #     self.merge!(response)
+      #     success?
+      #   end
 
-        raise_on_api_error :create, :update, :delete
-      end
+      #   raise_on_api_error :create, :update, :delete
+      # end
 
       class BaseAddress < Base
         def self.load_members
@@ -1150,7 +1150,7 @@ module PayPal::SDK
 
       class CreditCardList < Base
         def self.load_members
-          array_of  :items, CreditCard
+          # array_of  :items, CreditCard
           object_of :total_items, Integer
           object_of :total_pages, Integer
           array_of :links, Links

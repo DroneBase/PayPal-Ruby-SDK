@@ -371,67 +371,67 @@ describe "Payments" do
       end
     end
 
-    describe "CreditCard", :integration => true do
-      it "Create" do
-        credit_card = CreditCard.new({
-          "type" =>  "visa",
-          "number" =>  "4567516310777851",
-          "expire_month" =>  "11", "expire_year" =>  "2018",
-          "cvv2" =>  "874",
-          "first_name" =>  "Joe", "last_name" =>  "Shopper",
-          "billing_address" =>  {
-            "line1" =>  "52 N Main ST",
-            "city" =>  "Johnstown",
-            "state" =>  "OH",
-            "postal_code" =>  "43210", "country_code" =>  "US" }})
-        credit_card.create
-        expect(credit_card.error).to be_nil
-        expect(credit_card.id).not_to be_nil
+    # # describe "CreditCard", :integration => true do
+    # #   it "Create" do
+    # #     credit_card = CreditCard.new({
+    # #       "type" =>  "visa",
+    # #       "number" =>  "4567516310777851",
+    # #       "expire_month" =>  "11", "expire_year" =>  "2018",
+    # #       "cvv2" =>  "874",
+    # #       "first_name" =>  "Joe", "last_name" =>  "Shopper",
+    # #       "billing_address" =>  {
+    # #         "line1" =>  "52 N Main ST",
+    # #         "city" =>  "Johnstown",
+    # #         "state" =>  "OH",
+    # #         "postal_code" =>  "43210", "country_code" =>  "US" }})
+    # #     credit_card.create
+    # #     expect(credit_card.error).to be_nil
+    # #     expect(credit_card.id).not_to be_nil
 
-        credit_card = CreditCard.find(credit_card.id)
-        expect(credit_card).to be_a CreditCard
-        expect(credit_card.error).to be_nil
-      end
+    # #     credit_card = CreditCard.find(credit_card.id)
+    # #     expect(credit_card).to be_a CreditCard
+    # #     expect(credit_card.error).to be_nil
+    # #   end
 
-      it "Delete" do
-        credit_card = CreditCard.new({
-          "type" =>  "visa",
-          "number" =>  "4567516310777851",
-          "expire_month" =>  "11", "expire_year" =>  "2018" })
-        expect(credit_card.create).to be_truthy
-        expect(credit_card.delete).to be_truthy
-      end
+    # #   it "Delete" do
+    # #     credit_card = CreditCard.new({
+    # #       "type" =>  "visa",
+    # #       "number" =>  "4567516310777851",
+    # #       "expire_month" =>  "11", "expire_year" =>  "2018" })
+    # #     expect(credit_card.create).to be_truthy
+    # #     expect(credit_card.delete).to be_truthy
+    # #   end
 
-      describe "Validation", :integration => true do
-        it "Create" do
-          credit_card = CreditCard.new({
-            "type" =>  "visa",
-            "number" =>  "4111111111111111" })
-          credit_card.create
-          expect(credit_card.error).not_to be_nil
+    #   describe "Validation", :integration => true do
+    #     it "Create" do
+    #       credit_card = CreditCard.new({
+    #         "type" =>  "visa",
+    #         "number" =>  "4111111111111111" })
+    #       credit_card.create
+    #       expect(credit_card.error).not_to be_nil
 
-          expect(credit_card.error.name).to eql "VALIDATION_ERROR"
-          expect(credit_card.error["name"]).to eql "VALIDATION_ERROR"
+    #       expect(credit_card.error.name).to eql "VALIDATION_ERROR"
+    #       expect(credit_card.error["name"]).to eql "VALIDATION_ERROR"
 
-          expect(credit_card.error.details[0].field).to eql "expire_year"
-          expect(credit_card.error.details[0].issue).to eql "Required field missing"
-          expect(credit_card.error.details[1].field).to eql "expire_month"
-          expect(credit_card.error.details[1].issue).to eql "Required field missing"
+    #       expect(credit_card.error.details[0].field).to eql "expire_year"
+    #       expect(credit_card.error.details[0].issue).to eql "Required field missing"
+    #       expect(credit_card.error.details[1].field).to eql "expire_month"
+    #       expect(credit_card.error.details[1].issue).to eql "Required field missing"
 
-          expect(credit_card.error["details"][0]["issue"]).to eql "Required field missing"
-        end
-      end
-    end
+    #       expect(credit_card.error["details"][0]["issue"]).to eql "Required field missing"
+    #     end
+    #   end
+    # end
 
-    describe 'CreditCardList', :integration => true do
+    # describe 'CreditCardList', :integration => true do
 
-      it "List" do
-        options = { :create_time => "2015-03-28T15:33:43Z" }
-        credit_card_list = CreditCardList.list()
-        expect(credit_card_list.total_items).to be > 0
-      end
+    #   it "List" do
+    #     options = { :create_time => "2015-03-28T15:33:43Z" }
+    #     credit_card_list = CreditCardList.list()
+    #     expect(credit_card_list.total_items).to be > 0
+    #   end
 
-    end
+    # end
 
   end
 end
