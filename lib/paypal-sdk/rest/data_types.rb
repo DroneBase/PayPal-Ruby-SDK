@@ -1477,7 +1477,7 @@ module PayPal::SDK
 
       class WebhookList < Base
         def self.load_members
-          array_of  :webhooks, Webhook
+          # array_of  :webhooks, Webhook
         end
       end
 
@@ -1618,68 +1618,68 @@ module PayPal::SDK
         end
       end
 
-      class Webhook < Base
+      # class Webhook < Base
 
-        def self.load_members
-          object_of :id, String
-          object_of :url, String
-          array_of  :event_types, EventType
-          array_of  :links, Links
-        end
+      #   def self.load_members
+      #     object_of :id, String
+      #     object_of :url, String
+      #     array_of  :event_types, EventType
+      #     array_of  :links, Links
+      #   end
 
-        include RequestDataType
+      #   include RequestDataType
 
-        def create()
-          path = "v1/notifications/webhooks"
-          response = api.post(path, self.to_hash, http_header)
-          self.merge!(response)
-          Webhook.new(response)
-        end
+      #   def create()
+      #     path = "v1/notifications/webhooks"
+      #     response = api.post(path, self.to_hash, http_header)
+      #     self.merge!(response)
+      #     Webhook.new(response)
+      #   end
 
-        def update(patch)
-          patch = Patch.new(patch) unless patch.is_a? Patch
-          patch_request = Array.new(1, patch.to_hash)
-          path = "v1/notifications/webhooks/#{self.id}"
-          response = api.patch(path, patch_request, http_header)
-          self.merge!(response)
-          success?
-        end
+      #   def update(patch)
+      #     patch = Patch.new(patch) unless patch.is_a? Patch
+      #     patch_request = Array.new(1, patch.to_hash)
+      #     path = "v1/notifications/webhooks/#{self.id}"
+      #     response = api.patch(path, patch_request, http_header)
+      #     self.merge!(response)
+      #     success?
+      #   end
 
-        def delete()
-          path = "v1/notifications/webhooks/#{self.id}"
-          response = api.delete(path, {})
-          self.merge!(response)
-          success?
-        end
+      #   def delete()
+      #     path = "v1/notifications/webhooks/#{self.id}"
+      #     response = api.delete(path, {})
+      #     self.merge!(response)
+      #     success?
+      #   end
 
-        raise_on_api_error :update, :delete
+      #   raise_on_api_error :update, :delete
 
-        class << self
-          def get(webhook_id)
-            raise ArgumentError.new("webhook_id required") if webhook_id.to_s.strip.empty?
-            path = "v1/notifications/webhooks/#{webhook_id}"
-            Webhook.new(api.get(path))
-          end
+      #   class << self
+      #     def get(webhook_id)
+      #       raise ArgumentError.new("webhook_id required") if webhook_id.to_s.strip.empty?
+      #       path = "v1/notifications/webhooks/#{webhook_id}"
+      #       Webhook.new(api.get(path))
+      #     end
 
-          def get_event_types(webhook_id)
-            raise ArgumentError.new("webhook_id required") if webhook_id.to_s.strip.empty?
-            path = "v1/notifications/webhooks/#{webhook_id}/event-types"
-            EventTypeList.new(api.get(path))
-          end
+      #     def get_event_types(webhook_id)
+      #       raise ArgumentError.new("webhook_id required") if webhook_id.to_s.strip.empty?
+      #       path = "v1/notifications/webhooks/#{webhook_id}/event-types"
+      #       EventTypeList.new(api.get(path))
+      #     end
 
-          def all(options={})
-            path = "v1/notifications/webhooks"
-            WebhookList.new(api.get(path))
-          end
+      #     def all(options={})
+      #       path = "v1/notifications/webhooks"
+      #       WebhookList.new(api.get(path))
+      #     end
 
-          def simulate_event(webhook_id, url, event_type)
-            path = "v1/notifications/simulate-event"
-            options = { :webhook_id => webhook_id, :url => url, :event_type => event_type }
-            response = api.post(path, options)
-            WebhookEvent.new(response)
-          end
-        end
-      end
+      #     def simulate_event(webhook_id, url, event_type)
+      #       path = "v1/notifications/simulate-event"
+      #       options = { :webhook_id => webhook_id, :url => url, :event_type => event_type }
+      #       response = api.post(path, options)
+      #       WebhookEvent.new(response)
+      #     end
+      #   end
+      # end
 
       class Payout < Base
 
